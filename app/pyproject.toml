@@ -1,0 +1,24 @@
+[project]
+name = "infra-api"
+version = "0.1.0"
+description = "Infrastructure inventory API"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.116",
+    "uvicorn[standard]>=0.35",
+    "sqlalchemy>=2.0",
+    "alembic>=1.16",
+    "psycopg[binary]>=3.2",
+    "pydantic-settings>=2.10",
+    "prometheus-fastapi-instrumentator>=7.1"
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4",
+    "httpx>=0.28",
+    "ruff>=0.12"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
