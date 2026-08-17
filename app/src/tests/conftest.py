@@ -10,10 +10,7 @@ from infra_api.database import Base, get_db
 from infra_api.main import app
 
 
-TEST_DATABASE_URL = os.getenv(
-    "TEST_DATABASE_URL",
-    "postgresql+psycopg://infra_test:infra_test@localhost:5432/infra_test",
-)
+TEST_DATABASE_URL = os.environ["DATABASE_URL"]
 
 engine = create_engine(
     TEST_DATABASE_URL,

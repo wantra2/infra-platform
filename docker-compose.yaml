@@ -11,6 +11,8 @@ services:
       timeout: 5s
       retries: 10
       start_period: 5s
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   migration:
     build:
@@ -25,6 +27,7 @@ services:
   api:
     build:
       context: ./app
+      target: runtime
     environment:
       DATABASE_URL: ${DATABASE_URL}
       ENVIRONMENT: development
@@ -33,3 +36,30 @@ services:
     depends_on:
       migration:
         condition: service_completed_successfully
+
+##TESTS
+
+  test-db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: infra
+      POSTGRES_PASSWORD: infra
+      POSTGRES_DB: infra_test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U infra -d infra_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  tests:
+    build:
+      context: ./app
+      target: test
+    environment:
+      DATABASE_URL: postgresql+psycopg://infra:infra@test-db:5432/infra_test
+
+    depends_on:
+      test-db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
