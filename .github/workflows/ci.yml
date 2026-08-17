@@ -25,3 +25,14 @@ jobs:
       - name: Cleanup
         if: always()
         run: docker compose down -v
+    
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build API image
+        run: docker build --target runtime -t infra-platform:${{ github.sha }} ./app
