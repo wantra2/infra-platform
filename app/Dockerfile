@@ -2,7 +2,8 @@ FROM python:3.12-slim AS runtime
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PYTHONPATH=/app/src
+    PYTHONPATH=/app/src \
+    PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app/src
 
@@ -12,16 +13,16 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-RUN pip install --no-cache-dir \
-    "fastapi" \
-    "uvicorn[standard]" \
-    "sqlalchemy>=2.0" \
-    "psycopg[binary]" \
-    "alembic>=1.16" \
-    "pydantic-settings" \
-    "prometheus-fastapi-instrumentator"
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-COPY src .
+# Copy dependency definitions first for Docker layer caching
+COPY pyproject.toml uv.lock /app/
+
+# Install exactly what's in uv.lock
+RUN uv sync --directory /app/ --locked --no-dev
+
+COPY src /app/src
 
 RUN useradd \
     --create-home \
