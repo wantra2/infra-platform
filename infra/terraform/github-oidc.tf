@@ -30,7 +30,10 @@ resource "aws_iam_role" "github_actions" {
           }
 
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:wantra2/infra-platform:*"
+            "token.actions.githubusercontent.com:sub" = [
+              "repo:wantra2/infra-platform:ref:refs/heads/main",
+              "repo:wantra2/infra-platform:pull_request"
+            ]
           }
         }
       }
