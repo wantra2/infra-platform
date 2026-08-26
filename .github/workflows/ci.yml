@@ -46,6 +46,9 @@ jobs:
         with:
           terraform_version: "1.13.0"
 
+      - name: Debug OIDC claims
+        uses: github/actions-oidc-debugger@v1
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
