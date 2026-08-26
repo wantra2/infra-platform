@@ -50,7 +50,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
-          aws-region: eu-west-3
+          aws-region: us-east-1
 
       - name: Terraform format
         run: terraform fmt -check -recursive
