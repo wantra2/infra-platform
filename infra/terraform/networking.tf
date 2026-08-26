@@ -20,8 +20,8 @@ module "vpc" {
     "10.0.12.0/24",
   ]
 
-  enable_nat_gateway   = true
+  enable_nat_gateway     = true
   one_nat_gateway_per_az = true
-  enable_vpn_gateway   = false
+  enable_vpn_gateway     = false
 
 }
