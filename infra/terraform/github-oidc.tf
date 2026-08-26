@@ -31,8 +31,8 @@ resource "aws_iam_role" "github_actions" {
 
           StringLike = {
             "token.actions.githubusercontent.com:sub" = [
-              "repo:wantra2/infra-platform:ref:refs/heads/main",
-              "repo:wantra2/infra-platform:pull_request"
+              "repo:wantra2@25832845/infra-platform@1333024294:ref:refs/heads/main",
+              "repo:wantra2@25832845/infra-platform@1333024294:pull_request"
             ]
           }
         }
