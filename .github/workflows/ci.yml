@@ -46,10 +46,6 @@ jobs:
         with:
           terraform_version: "1.13.0"
 
-      - name: Check role ARN
-        run: |
-          echo "AWS_ROLE_ARN=${{ vars.AWS_ROLE_ARN }}"
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
