@@ -27,6 +27,7 @@ jobs:
         run: docker compose down -v
 
   terraform:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     permissions:
@@ -63,6 +64,9 @@ jobs:
 
       - name: Terraform plan
         run: terraform plan
+
+      - name: Terraform apply
+        run: terraform apply -auto-approve
     
   publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
