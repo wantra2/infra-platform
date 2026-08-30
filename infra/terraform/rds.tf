@@ -1,7 +1,7 @@
 resource "aws_db_subnet_group" "postgres" {
   name = "${var.project_name}-${var.environment}-postgres"
 
-  subnet_ids = module.vpc.private_subnet_ids
+  subnet_ids = module.vpc.private_subnet
 
 }
 
