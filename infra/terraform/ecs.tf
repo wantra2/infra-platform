@@ -4,8 +4,6 @@
 
 resource "aws_ecs_cluster" "app" {
   name = "${var.project_name}-${var.environment}"
-
-
 }
 
 # ============================================================
@@ -30,7 +28,6 @@ resource "aws_iam_role" "ecs_task_execution" {
       }
     ]
   })
-
 }
 
 
@@ -83,7 +80,6 @@ resource "aws_iam_role_policy_attachment" "ecs_secrets" {
 resource "aws_cloudwatch_log_group" "app" {
   name              = "/ecs/${var.project_name}-${var.environment}"
   retention_in_days = 7
-
 }
 
 # ============================================================
@@ -196,7 +192,7 @@ resource "aws_ecs_service" "app" {
   load_balancer {
     target_group_arn = aws_lb_target_group.app.arn
     container_name   = "app"
-    container_port    = 8000
+    container_port   = 8000
   }
 
 }
