@@ -27,3 +27,7 @@ variable "db_username" {
   sensitive = true
 }
 
+variable "container_image" {
+  description = "Docker image used by the ECS task"
+  type        = string
+}
